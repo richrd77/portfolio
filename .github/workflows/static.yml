@@ -1,0 +1,37 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Github pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: - master
+
+  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-Latest
+    steps: - name:checkout
+        uses: actions/checkout@v2
+      - name: Setup node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+        - name:copy html
+        run: cp -a dist/portfolio/browser/index.html
+
+        name: Deploy 
+        if:success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/portfolio/browser
+          enable_jekyll: true
+
+    
